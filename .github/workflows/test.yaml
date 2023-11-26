@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name:
-        run: npm tern-on-api
+        run: npm run tern-on-api
 
       - name: Run Newman tests
-        run: npm test petstore.collection.json
+        run: npm run test petstore.collection.json

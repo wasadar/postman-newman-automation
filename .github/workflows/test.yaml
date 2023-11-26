@@ -21,8 +21,5 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name:
-        run: npm run tern-on-api
-
       - name: Run Newman tests
         run: npm run test petstore.collection.json

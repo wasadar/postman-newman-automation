@@ -21,5 +21,14 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
+      - name: Make Directory for results
+        run: mkdir -p testResults
+
       - name: Run Newman tests
-        run: npm run test petstore.collection.json
+        run: npm run test petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
+
+      - name: Output the run Details
+        uses: actions/upload-artifact@v2
+        with:
+          name: RunReports
+          path: testResults

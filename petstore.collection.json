@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "4a0f5191-a707-404b-9e37-a6711475a264",
+		"_postman_id": "4a84df5c-5857-4e62-8dc4-ceff8c15d9f5",
 		"name": "petstore",
 		"description": "This is a sample server Petstore server. For this sample, you can use the api key `special-key` to test the authorization filters.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18317683"
+		"_exporter_id": "31402283"
 	},
 	"item": [
 		{
@@ -17,9 +17,63 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 200 or 404\", function () {\r",
+									"    pm.expect([200, 404]).to.include(pm.response.code);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is json\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"object\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data structure is as expected\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    if (pm.response.code === 404) {\r",
+									"        pm.expect(responseData).to.have.property(\"type\", \"error\");\r",
+									"        pm.expect(responseData).to.have.property(\"message\", \"Pet not found\");\r",
+									"    } else {\r",
+									"    pm.expect(responseData).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.id).to.be.a(\"number\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"category\");\r",
+									"    pm.expect(responseData.category).to.be.an(\"object\");\r",
+									"    pm.expect(responseData.category).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.category.id).to.be.a(\"number\");\r",
+									"    pm.expect(responseData.category).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.category.name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"photoUrls\");\r",
+									"    pm.expect(responseData.photoUrls).to.be.an(\"array\");\r",
+									"    pm.expect(responseData.photoUrls[0]).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"tags\");\r",
+									"    pm.expect(responseData.tags).to.be.an(\"array\");\r",
+									"    pm.expect(responseData.tags[0]).to.be.an(\"object\");\r",
+									"    pm.expect(responseData.tags[0]).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.tags[0].id).to.be.a(\"number\");\r",
+									"    pm.expect(responseData.tags[0]).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.tags[0].name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"status\");\r",
+									"    pm.expect(responseData.status).to.be.a(\"string\");\r",
+									"    }\r",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -205,8 +259,53 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 200 or 404\", function () {\r",
+									"    pm.expect([200, 404]).to.include(pm.response.code);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is json\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"object\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data structure is as expected\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    if (pm.response.code === 404) {\r",
+									"        pm.expect(responseData).to.have.property(\"type\", \"error\");\r",
+									"        pm.expect(responseData).to.have.property(\"message\", \"Pet not found\");\r",
+									"    } else {\r",
+									"    pm.expect(responseData).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.id).to.be.a(\"number\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"category\");\r",
+									"    pm.expect(responseData.category).to.be.an(\"object\");\r",
+									"    pm.expect(responseData.category).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.category.id).to.be.a(\"number\");\r",
+									"    pm.expect(responseData.category).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.category.name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"photoUrls\");\r",
+									"    pm.expect(responseData.photoUrls).to.be.an(\"array\");\r",
+									"    pm.expect(responseData.photoUrls[0]).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"tags\");\r",
+									"    pm.expect(responseData.tags).to.be.an(\"array\");\r",
+									"    pm.expect(responseData.tags[0]).to.be.an(\"object\");\r",
+									"    pm.expect(responseData.tags[0]).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.tags[0].id).to.be.a(\"number\");\r",
+									"    pm.expect(responseData.tags[0]).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.tags[0].name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"status\");\r",
+									"    pm.expect(responseData.status).to.be.a(\"string\");\r",
+									"    }\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -326,6 +425,23 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is json\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each item has status matching query param value\", function () {\r",
+									"    const queryParamStatus = pm.request.url.query.get(\"status\");\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    responseData.forEach(function (item) {\r",
+									"        pm.expect(item).to.have.property(\"status\", queryParamStatus);\r",
+									"    });\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -415,7 +531,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/pet/findByStatus?status=available,available",
+									"raw": "{{baseUrl}}/pet/findByStatus?status=asdfgh",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -426,7 +542,7 @@
 									"query": [
 										{
 											"key": "status",
-											"value": "available,available"
+											"value": "asdfgh"
 										}
 									]
 								}
@@ -447,6 +563,37 @@
 				},
 				{
 					"name": "Finds Pets by tags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is json\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each item has tag specified in query param\", function () {\r",
+									"    const queryParamTag = pm.request.url.query.get(\"tags\");\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    responseData.forEach(function (item) {\r",
+									"        pm.expect(item).to.have.property(\"tags\");\r",
+									"        pm.expect(item.tags).to.be.an(\"array\");\r",
+									"        pm.expect(item.tags.length).to.be.greaterThan(0);\r",
+									"\r",
+									"        const hasSpecifiedTag = item.tags.some(tag => tag.name === queryParamTag);\r",
+									"        pm.expect(hasSpecifiedTag).to.be.true;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -567,8 +714,53 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 200 or 404\", function () {\r",
+									"    pm.expect([200, 404]).to.include(pm.response.code);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is json\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"object\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response data structure is as expected\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    if (pm.response.code === 404) {\r",
+									"        pm.expect(responseData).to.have.property(\"type\", \"error\");\r",
+									"        pm.expect(responseData).to.have.property(\"message\", \"Pet not found\");\r",
+									"    } else {\r",
+									"    pm.expect(responseData).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.id).to.be.a(\"number\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"category\");\r",
+									"    pm.expect(responseData.category).to.be.an(\"object\");\r",
+									"    pm.expect(responseData.category).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.category.id).to.be.a(\"number\");\r",
+									"    pm.expect(responseData.category).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.category.name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"photoUrls\");\r",
+									"    pm.expect(responseData.photoUrls).to.be.an(\"array\");\r",
+									"    pm.expect(responseData.photoUrls[0]).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"tags\");\r",
+									"    pm.expect(responseData.tags).to.be.an(\"array\");\r",
+									"    pm.expect(responseData.tags[0]).to.be.an(\"object\");\r",
+									"    pm.expect(responseData.tags[0]).to.have.property(\"id\");\r",
+									"    pm.expect(responseData.tags[0].id).to.be.a(\"number\");\r",
+									"    pm.expect(responseData.tags[0]).to.have.property(\"name\");\r",
+									"    pm.expect(responseData.tags[0].name).to.be.a(\"string\");\r",
+									"\r",
+									"    pm.expect(responseData).to.have.property(\"status\");\r",
+									"    pm.expect(responseData.status).to.be.a(\"string\");\r",
+									"    }\r",
 									"});"
 								],
 								"type": "text/javascript"
